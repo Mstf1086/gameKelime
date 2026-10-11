@@ -142,6 +142,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
     );
   }
+
+  void _showEditProfileDialog(BuildContext context) {
     final auth = context.read<AuthProvider>();
     final nameController = TextEditingController(
       text: auth.currentUser?.displayName ?? '',
