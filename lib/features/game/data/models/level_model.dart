@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../core/constants/game_config.dart';
+import '../../../core/constants/game_config.dart';
 
 /// Bir oyun seviyesini temsil eden model.
 class LevelModel {

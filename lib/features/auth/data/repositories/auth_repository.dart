@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../core/errors/firebase_errors.dart';
-import '../../data/models/user_model.dart';
+import '../models/user_model.dart';
 
 /// Auth işlemlerinin asıl soyutlama katmanı.
 /// AuthService bu repository'yi kullanarak Firebase ile konuşur.

@@ -3,7 +3,7 @@ import '../constants/game_config.dart';
 import '../constants/strings.dart';
 import '../errors/firebase_errors.dart';
 import '../utils/game_utils.dart';
-import '../services/firestore_service.dart';
+import 'firestore_service.dart';
 import '../../features/game/data/models/level_model.dart';
 
 /// Level verisini Firestore'dan yöneten servis.
@@ -35,7 +35,7 @@ class LevelService extends ChangeNotifier {
     try {
       _isLoading = true;
       _error = null;
-      _levels = await _firestore.collectionCollection('levels');
+      _levels = (await _firestore.collectionCollection('levels'))
           .map((doc) => LevelModel.fromFirestore(doc))
           .toList();
       _sortAndAssignLevels();

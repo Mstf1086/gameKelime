@@ -68,10 +68,10 @@ class GameConfig {
   }) {
     final difficultyMult = difficultyMultiplier(level);
     final timeBonusPoints =
-        timeLimit.inWholeSeconds > timeTakenSeconds
-            ? (timeLimit.inWholeSeconds - timeTakenSeconds) * timePerSecond
+        timeLimit.inSeconds > timeTakenSeconds
+            ? (timeLimit.inSeconds - timeTakenSeconds) * timePerSecond
             : 0;
-    return (basePoints * difficultyMult).round() +
+    return (basePoints * difficultyMult).toInt() +
         timeBonusPoints +
         (jokersRemaining * jokerRemainingBonus) -
         (jokersUsed * jokerPenalty);

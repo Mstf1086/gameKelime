@@ -4,7 +4,7 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/game_config.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_pages.dart';
-import '../../core/services/level_service.dart';
+import '../../../core/services/level_service.dart';
 import '../../data/models/level_model.dart';
 
 class LevelSelectPage extends StatelessWidget {

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'features/auth/presentation/pages/welcome_page.dart';
-import 'features/auth/presentation/pages/sign_in_page.dart';
-import 'features/auth/presentation/pages/sign_up_page.dart';
-import 'features/game/presentation/pages/home_page.dart';
-import 'features/game/presentation/pages/level_select_page.dart';
-import 'features/game/presentation/pages/game_page.dart';
-import 'features/game/presentation/pages/game_result_page.dart';
-import 'features/game/presentation/pages/rules_page.dart';
-import 'features/profile/presentation/pages/profile_page.dart';
-import 'features/profile/presentation/pages/leaderboard_page.dart';
-import 'features/profile/presentation/pages/game_history_page.dart';
+import '../../features/auth/presentation/pages/welcome_page.dart';
+import '../../features/auth/presentation/pages/sign_in_page.dart';
+import '../../features/auth/presentation/pages/sign_up_page.dart';
+import '../../features/game/presentation/pages/home_page.dart';
+import '../../features/game/presentation/pages/level_select_page.dart';
+import '../../features/game/presentation/pages/game_page.dart';
+import '../../features/game/presentation/pages/game_result_page.dart';
+import '../../features/game/presentation/pages/rules_page.dart';
+import '../../features/profile/presentation/pages/profile_page.dart';
+import '../../features/profile/presentation/pages/leaderboard_page.dart';
+import '../../features/profile/presentation/pages/game_history_page.dart';
 
 class AppPages {
   AppPages._();

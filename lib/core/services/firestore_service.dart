@@ -41,7 +41,7 @@ class FirestoreService extends ChangeNotifier {
   // -----------------------------------------------------------------
 
   /// Bir koleksiyona belge ekler.
-  Future<DocumentReference> add<String>(
+  Future<DocumentReference<Map<String, dynamic>>> add(
     String collectionPath,
     Map<String, dynamic> data,
   ) async {
@@ -148,19 +148,20 @@ class FirestoreService extends ChangeNotifier {
   Stream<List<Map<String, dynamic>>> _snapshotToStream(
     Query<Map<String, dynamic>> query,
   ) {
-    return snapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      data['id'] = doc.id;
-      return data;
-    }).toList();
+    return query.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        data['id'] = doc.id;
+        return data;
+      }).toList();
+    });
   }
 
   /// Sıralama ve filtreleme ile belge başlatır (gameRecords sıralaması için).
   Query<Map<String, dynamic>> orderedCollection(String path, {String orderBy = 'createdAt', bool descending = true}) {
     Query<Map<String, dynamic>> query = collection(path);
     if (orderBy.isNotEmpty) {
-      query = descending
-          ? query.orderBy(orderBy).orderBy('level');
+      query = query.orderBy(orderBy, descending: descending);
     }
     return query;
   }

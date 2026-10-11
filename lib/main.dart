@@ -43,9 +43,9 @@ class GameKelimeApp extends StatelessWidget {
           create: (_) => LevelService(),
           update: (_, auth, level) {
             // Auth durumu değiştiğinde level verisini yeniden yükle
-            final userId = auth.currentUser?.uid;
+            final userId = auth.currentUser?.id;
             if (userId != null) {
-              level.loadLevels();
+              level!.loadLevels();
             }
             return level!;
           },
@@ -55,7 +55,7 @@ class GameKelimeApp extends StatelessWidget {
       child: Consumer<ThemeService>(
         builder: (_, themeProvider, __) {
           return MaterialApp(
-            title: AppTitle,
+            title: Strings.appTitle,
             debugShowCheckedModeBanner: false,
             theme: AppColors.lightTheme,
             darkTheme: AppColors.darkTheme,

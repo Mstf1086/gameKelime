@@ -5,6 +5,7 @@ import '../../../core/errors/firebase_errors.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../../data/repositories/user_repository.dart';
+import '../../data/repositories/user_repository.dart';
 
 /// Giriş/kayıt akışını yöneten state provider.
 class AuthProvider extends ChangeNotifier {
