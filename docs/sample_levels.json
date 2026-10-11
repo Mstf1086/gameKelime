@@ -1,0 +1,272 @@
+[
+  {
+    "level": 1,
+    "category": "DOĞALAR",
+    "question": "Yaprak döker, dört mevsimi sever, en uzun ömürlüdür",
+    "answer": "AĞAÇ",
+    "hint": "Ormanlarda bulunur",
+    "basePoints": 10,
+    "answerLength": 4
+  },
+  {
+    "level": 2,
+    "category": "HAYVANLAR",
+    "question": "Sürekli havlar, kuyruğunu sallar ve sadıktır",
+    "answer": "KÖPEK",
+    "hint": "Evcil bir hayvandır",
+    "basePoints": 10,
+    "answerLength": 5
+  },
+  {
+    "level": 3,
+    "category": "YEMEKLER",
+    "question": "Meyve, kırmızı veya yeşil, sağlıklı bir atıştırmalık",
+    "answer": "ELMA",
+    "hint": "Bahçede yetişir",
+    "basePoints": 10,
+    "answerLength": 4
+  },
+  {
+    "level": 4,
+    "category": "MESLEKLER",
+    "question": "Sınıfta öğrencilere ders verir",
+    "answer": "ÖĞRETMEN",
+    "hint": "Okulda çalışır",
+    "basePoints": 10,
+    "answerLength": 8
+  },
+  {
+    "level": 5,
+    "category": "DOĞALAR",
+    "question": "Gece gökyüzünde parlar ve çok uzaktır",
+    "answer": "AY",
+    "hint": "Ay tutulması olur",
+    "basePoints": 10,
+    "answerLength": 2
+  },
+  {
+    "level": 6,
+    "category": "HAYVANLAR",
+    "question": "Uçar, ötüşür ve ağaçlarda yuva yapar",
+    "answer": "KUŞ",
+    "hint": "Tüyleri vardır",
+    "basePoints": 10,
+    "answerLength": 3
+  },
+  {
+    "level": 7,
+    "category": "YEMEKLER",
+    "question": "Sabah kahvaltısında içilen, beyaz ve ineklerden gelir",
+    "answer": "SÜT",
+    "hint": "Kalsiyum kaynağıdır",
+    "basePoints": 10,
+    "answerLength": 3
+  },
+  {
+    "level": 8,
+    "category": "MESLEKLER",
+    "question": "Hastaları muayene eder, teşhis koyar ve tedavi eder",
+    "answer": "DOKTOR",
+    "hint": "Hastanede çalışır",
+    "basePoints": 10,
+    "answerLength": 6
+  },
+  {
+    "level": 9,
+    "category": "MEKANLAR",
+    "question": "İki kıtayı (Avrupa ve Asya) birbirine bağlayan büyük şehir",
+    "answer": "İSTANBUL",
+    "hint": "Boğazları vardır",
+    "basePoints": 10,
+    "answerLength": 8
+  },
+  {
+    "level": 10,
+    "category": "DOĞALAR",
+    "question": "Gökyüzünden yağar, bitkileri sular",
+    "answer": "YAĞMUR",
+    "hint": "Yağmur çamuru olur",
+    "basePoints": 10,
+    "answerLength": 6
+  },
+  {
+    "level": 11,
+    "category": "HAYVANLAR",
+    "question": "Kara üzerinde en hızlı koşan hayvandır",
+    "answer": "PARDAL",
+    "hint": "Leoparlar gibi hızlıdır",
+    "basePoints": 25,
+    "answerLength": 6
+  },
+  {
+    "level": 12,
+    "category": "BİLGİSAYAR",
+    "question": "Bilgisayara bağlı, yazdıklarımızı ve oynadıklarımızı gösteren cihaz",
+    "answer": "MONİTÖR",
+    "hint": "Ekran gibi düşün",
+    "basePoints": 25,
+    "answerLength": 7
+  },
+  {
+    "level": 13,
+    "category": "YEMEKLER",
+    "question": "Kavrulmuş yumurta, domates ve biber ile yapılan Türk kahvaltısı yemeği",
+    "answer": "MENEMEN",
+    "hint": "Patatesli de yapılır",
+    "basePoints": 25,
+    "answerLength": 7
+  },
+  {
+    "level": 14,
+    "category": "TARİH",
+    "question": "Mustafa Kemal Atatürk'ün doğduğu şehir",
+    "answer": "SELANİK",
+    "hint": "Yunanistan'da bugün Thessaloniki",
+    "basePoints": 25,
+    "answerLength": 7
+  },
+  {
+    "level": 15,
+    "category": "MEKANLAR",
+    "question": "Türkiye Cumhuriyeti'nin başkentidir",
+    "answer": "ANKARA",
+    "hint": "Orta Anadolu'dadır",
+    "basePoints": 25,
+    "answerLength": 6
+  },
+  {
+    "level": 16,
+    "category": "BİLGİSAYAR",
+    "question": "Sesli konuşmalarımızı kaydettiğimiz cihaz",
+    "answer": "TELEFON",
+    "hint": "Cep telefonu da olabilir",
+    "basePoints": 25,
+    "answerLength": 7
+  },
+  {
+    "level": 17,
+    "category": "HAYVANLAR",
+    "question": "Suda yaşar, pulları vardır ve yüzgeçleriyle yüzer",
+    "answer": "BALIK",
+    "hint": "Havuzlarda bulunur",
+    "basePoints": 25,
+    "answerLength": 5
+  },
+  {
+    "level": 18,
+    "category": "MESLEKLER",
+    "question": "Unu ezip hamur yapıp ekmek pişiren kişi",
+    "answer": "FİRİNCİ",
+    "hint": "Ekmek yapar",
+    "basePoints": 25,
+    "answerLength": 7
+  },
+  {
+    "level": 19,
+    "category": "EDEBİYAT",
+    "question": "Kendi yaşamını veya başkalarının yaşamını anlatan yazar",
+    "answer": "YAZAR",
+    "hint": "Kitap yazar",
+    "basePoints": 25,
+    "answerLength": 5
+  },
+  {
+    "level": 20,
+    "category": "BİLGİSAYAR",
+    "question": "Bilgisayara veri girmemizi sağlayan cihaz",
+    "answer": "KLAVYE",
+    "hint": "Tuşları vardır",
+    "basePoints": 25,
+    "answerLength": 6
+  },
+  {
+    "level": 21,
+    "category": "HAYVANLAR",
+    "question": "Denizlerde yaşayan, devasa boyutlu memeli",
+    "answer": "BALİNA",
+    "hint": "Suda yaşar",
+    "basePoints": 50,
+    "answerLength": 6
+  },
+  {
+    "level": 22,
+    "category": "COĞRAFYA",
+    "question": "Türkiye'nin en yüksek dağ zirvesi (Volkanik)",
+    "answer": "ERCIYES",
+    "hint": "Kayseri'dedir",
+    "basePoints": 50,
+    "answerLength": 7
+  },
+  {
+    "level": 23,
+    "category": "BİLGİSAYAR",
+    "question": "İnternette web sayfalarını görüntülediğimiz program",
+    "answer": "TARAYICI",
+    "hint": "Chrome, Firefox gibi",
+    "basePoints": 50,
+    "answerLength": 8
+  },
+  {
+    "level": 24,
+    "category": "TARİH",
+    "question": "Osmanlı Devleti'ni kuran ilk padişah",
+    "answer": "OSMAN",
+    "hint": "Osmanlı adı buradan gelir",
+    "basePoints": 50,
+    "answerLength": 5
+  },
+  {
+    "level": 25,
+    "category": "HAYVANLAR",
+    "question": "Gece avlanan, tünellere asılarak yaşayan tek uçan memeli",
+    "answer": "YARASA",
+    "hint": "Uçar ama kuş değildir",
+    "basePoints": 50,
+    "answerLength": 6
+  },
+  {
+    "level": 26,
+    "category": "EDEBİYAT",
+    "question": "Gerçek veya uydurma olayları anlatan kısa edebi eser",
+    "answer": "HİKAYE",
+    "hint": "Kısa roman",
+    "basePoints": 50,
+    "answerLength": 6
+  },
+  {
+    "level": 27,
+    "category": "BİLGİSAYAR",
+    "question": "Bilgisayar sistemine zarar veren kötü amaçlı yazılım",
+    "answer": "VİRÜS",
+    "hint": "Antivirüs korur",
+    "basePoints": 50,
+    "answerLength": 5
+  },
+  {
+    "level": 28,
+    "category": "COĞRAFYA",
+    "question": "Dünyanın en uzun nehri (Afrika'da)",
+    "answer": "NIL",
+    "hint": "Mısır boyunca akar",
+    "basePoints": 50,
+    "answerLength": 3
+  },
+  {
+    "level": 29,
+    "category": "BİYOLOJİ",
+    "question": "Canlı organizmaların yapı ve görev birimi",
+    "answer": "HÜCRE",
+    "hint": "Gözle görülemez",
+    "basePoints": 50,
+    "answerLength": 5
+  },
+  {
+    "level": 30,
+    "category": "COĞRAFYA",
+    "question": "İstanbul'u Avrupa ve Asya kıtalarına ayıran su yolu",
+    "answer": "BOĞAZ",
+    "hint": "İstanbul Boğazı",
+    "basePoints": 50,
+    "answerLength": 5
+  }
+]

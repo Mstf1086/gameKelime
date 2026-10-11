@@ -1,0 +1,56 @@
+# Build outputları
+.pub-cache/
+.build/
+.buildkite/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+.svn/
+
+# Platform özel çıktıları
+.android/
+/ios/
+/**/*.xcarchive/
+/**/*.xcodeproj/
+/**/*.xcworkspace/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Swift Package Manager
+**/.swiftpm/
+
+# Hprof / profil
+*.hprof
+
+# Snapshotler
+*/snapshot/*
+*/**/*.hprof
+
+# Loglar
+*.log
+*.pid
+
+# Firebase
+.firebase/
+.firebase-init.json
+
+# Yerel yapılandırma / gizli dosyalar
+.env
+.env.*
+*.local
+
+# APK / AAB dağıtım çıktıları (opsiyonel — kendi kontrolünüz altında tutun)
+# *.apk
+# *.aab
+# *.app
+# *.ipa
+
+# Python
+__pycache__/
+*.pyc
+.venv/
