@@ -22,7 +22,7 @@ void main() async {
   );
 
   // Firestore kullanan servisleri başlat
-  await FirestoreService.instance.init();
+  await FirestoreService().init();
 
   runApp(const GameKelimeApp());
 }

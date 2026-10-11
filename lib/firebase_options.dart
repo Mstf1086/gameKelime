@@ -10,23 +10,21 @@
 
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show DefaultFirebaseOptions, kIsWeb, PlatformException;
+    show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
     }
-    // TODO: Android yapılandırmasını buraya ekleyin (google-services.json'dan)
-    throw UnsupportedError(
-      'DefaultFirebaseOptions have not been configured for android - '
-      'update firebase_options.dart and re-run your project',
-    );
-    // TODO: iOS yapılandırmasını buraya ekleyin (GoogleService-Info.plist'den)
-    throw UnsupportedError(
-      'DefaultFirebaseOptions have not been configured for ios - '
-      'update firebase_options.dart and re-run your project',
-    );
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return androidConfig;
+      case TargetPlatform.iOS:
+        return ios;
+      default:
+        return web;
+    }
   }
 
   // Web yapılandırması (Firebase Console > General > Your apps > Web app > SDK setup and configuration)
@@ -38,17 +36,20 @@ class DefaultFirebaseOptions {
     messagingSenderId: '750201021877',
     appId: '1:750201021877:web:c760072a7432cc6bd965fc',
   );
+
+  /// Android yapılandırması (google-services.json'dan alın).
+  static const FirebaseOptions androidConfig = FirebaseOptions(
+    apiKey: 'AIzaSyCMYi4yzPqhsYH7BZb_pxf6MmPZVsmRWYU',
+    appId: '1:750201021877:android:3e3d4e4ed84f8e56d965fc',
+    messagingSenderId: '750201021877',
+    projectId: 'gamekelime',
+    storageBucket: 'gamekelime.firebasestorage.app',
+  );
 }
 
-/// Android yapılandırması (google-services.json'dan alın).
-/// `currentPlatform` yukarıdaki TODO bloğuna taşının.
-const FirebaseOptions android = FirebaseOptions(
-  apiKey: 'AIzaSyCMYi4yzPqhsYH7BZb_pxf6MmPZVsmRWYU',
-  appId: '1:750201021877:android:3e3d4e4ed84f8e56d965fc',
-  messagingSenderId: '750201021877',
-  projectId: 'gamekelime',
-  storageBucket: 'gamekelime.firebasestorage.app',
-);
+/// Geriye dönük uyumluluk için üst seviye takma adlar.
+const FirebaseOptions android = DefaultFirebaseOptions.androidConfig;
+const FirebaseOptions webOptions = DefaultFirebaseOptions.web;
 
 /// iOS yapılandırması (GoogleService-Info.plist'den alın).
 /// `currentPlatform` yukarıdaki TODO bloğuna taşının.
