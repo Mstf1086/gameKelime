@@ -171,7 +171,7 @@ class GameProvider extends ChangeNotifier {
     if (_level == null) return;
     try {
       final secondsElapsed =
-          GameConfig.timeLimit.inWholeSeconds - _timerService.remaining.inWholeSeconds;
+          GameConfig.timeLimit.inSeconds - _timerService.remaining.inSeconds;
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)

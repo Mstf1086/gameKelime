@@ -30,7 +30,7 @@ class AuthProvider extends ChangeNotifier {
       _currentUser = user != null ? UserModel.fromUser(user) : null;
       _isLoading = false;
       _errorMessage = null;
-      _userRepository.setUserId(user?.uid);
+      _userRepository.setUserId(user?.uid ?? '');
       notifyListeners();
     });
   }

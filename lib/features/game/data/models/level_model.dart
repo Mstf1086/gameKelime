@@ -33,7 +33,7 @@ class LevelModel {
       question: data['question'] as String? ?? '',
       answer: data['answer'] as String? ?? '',
       hint: data['hint'] as String? ?? '',
-      difficulty: GameConfig.difficultyForLevel(data['level'] as int?),
+      difficulty: GameConfig.difficultyForLevel(data['level'] as int? ?? 1),
       basePoints: data['basePoints'] as int? ?? 0,
       answerLength: data['answerLength'] as int? ?? 0,
     );

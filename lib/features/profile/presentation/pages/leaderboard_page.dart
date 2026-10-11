@@ -67,7 +67,7 @@ class _LeaderboardRow extends StatelessWidget {
       case 1:
         return Icons.emoji_events;
       case 2:
-        return Icons.medal;
+        return Icons.workspace_premium;
       case 3:
         return Icons.star_border;
       default:

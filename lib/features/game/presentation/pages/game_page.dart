@@ -9,6 +9,7 @@ import '../../../../core/services/timer_service.dart';
 import '../../../../core/utils/game_utils.dart';
 import '../../../../core/services/level_service.dart';
 import '../providers/game_provider.dart';
+import '../providers/keyboard_provider.dart';
 import '../widgets/score_board.dart';
 import '../widgets/question_card.dart';
 import '../widgets/letter_box.dart';

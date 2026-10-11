@@ -78,7 +78,7 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildActions(BuildContext context, ThemeProvider themeProvider) {
+  Widget _buildActions(BuildContext context, ThemeService themeProvider) {
     return Column(
       children: [
         ElevatedButton(

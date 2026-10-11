@@ -5,6 +5,7 @@ import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_pages.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../providers/profile_provider.dart';
+import '../../data/models/stats_model.dart';
 import '../widgets/stats_card.dart';
 import '../widgets/user_avatar.dart';
 

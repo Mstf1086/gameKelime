@@ -222,7 +222,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     );
                   }
                 },
-                icon: const Icon(Icons.google),
+                icon: const Icon(Icons.login),
                 label: const Text('Google ile kaydol'),
                 style: OutlinedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 56),
