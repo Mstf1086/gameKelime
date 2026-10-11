@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/strings.dart';
 
@@ -13,7 +13,7 @@ class RulesPage extends StatelessWidget {
         title: const Text(Strings.rulesTitle),
       ),
       body: FutureBuilder<String>(
-        future: rootBundle.loadString('RULES.md'),
+        future: rootBundle.loadString('assets/RULES.md'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

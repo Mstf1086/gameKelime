@@ -5,7 +5,6 @@ import '../../../../core/errors/firebase_errors.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../../data/repositories/user_repository.dart';
-import '../../data/repositories/user_repository.dart';
 
 /// Giriş/kayıt akışını yöneten state provider.
 class AuthProvider extends ChangeNotifier {
@@ -35,11 +34,11 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
-  /// Giriş yapar.
   Future<void> signIn(String email, String password) async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
     try {
-      _isLoading = true;
-      _errorMessage = null;
       final user = await _authRepository.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -59,9 +58,10 @@ class AuthProvider extends ChangeNotifier {
 
   /// Kayıt olur.
   Future<void> signUp(String email, String password, String displayName) async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
     try {
-      _isLoading = true;
-      _errorMessage = null;
       final user = await _authRepository.signUpWithEmailAndPassword(
         email: email,
         password: password,
@@ -84,17 +84,21 @@ class AuthProvider extends ChangeNotifier {
 
   /// Google ile giriş yapar.
   Future<void> signInWithGoogle() async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
     try {
-      _isLoading = true;
-      _errorMessage = null;
       final user = await _authRepository.signInWithGoogle();
       if (user != null) {
         await _loadUserProfile(user.uid);
+      } else {
+        _errorMessage = 'Google girişi iptal edildi.';
       }
     } on FirebaseErrors catch (e) {
       _errorMessage = e.message;
     } catch (e) {
-      _errorMessage = Strings.errorUnknown;
+      _errorMessage =
+          'Google girişi sırasında bir hata oluştu. SHA-1 parmak izini ve google-services.json dosyasını kontrol edin.';
     } finally {
       _isLoading = false;
       notifyListeners();

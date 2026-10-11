@@ -6,6 +6,9 @@ import 'core/constants/colors.dart';
 import 'core/constants/strings.dart';
 import 'core/constants/game_config.dart';
 import 'core/routes/app_pages.dart';
+import 'features/game/presentation/providers/game_provider.dart';
+import 'features/game/presentation/providers/keyboard_provider.dart';
+import 'features/profile/presentation/providers/profile_provider.dart';
 import 'core/services/auth_service.dart';
 import 'core/services/firestore_service.dart';
 import 'core/services/theme_service.dart';
@@ -40,6 +43,9 @@ class GameKelimeApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => LevelService()),
         ChangeNotifierProvider(create: (_) => FirestoreService()),
+        ChangeNotifierProvider(create: (_) => GameProvider()),
+        ChangeNotifierProvider(create: (_) => KeyboardProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
       ],
       child: Consumer<ThemeService>(
         builder: (_, themeProvider, __) {

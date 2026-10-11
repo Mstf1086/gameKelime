@@ -45,9 +45,24 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
+  Future<void> _handleGoogleSignIn() async {
+    final authProvider = context.read<AuthProvider>();
+    await authProvider.signInWithGoogle();
+    if (!mounted) return;
+    if (authProvider.isLoggedIn) {
+      Navigator.of(context).pushReplacementNamed(AppPages.home);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(authProvider.errorMessage ?? Strings.errorUnknown),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeService>(context);
+    context.watch<ThemeService>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.signInTitle),
@@ -151,20 +166,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               const SizedBox(height: 16),
               OutlinedButton.icon(
-                onPressed: () async {
-                  final authProvider = context.read<AuthProvider>();
-                  await authProvider.signInWithGoogle();
-                  if (!mounted) return;
-                  if (authProvider.isLoggedIn) {
-                    Navigator.of(context).pushReplacementNamed(AppPages.home);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(authProvider.errorMessage ?? Strings.errorUnknown),
-                      ),
-                    );
-                  }
-                },
+                onPressed: _handleGoogleSignIn,
                 icon: const Icon(Icons.login),
                 label: const Text('Google ile devam et'),
                 style: OutlinedButton.styleFrom(

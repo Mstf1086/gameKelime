@@ -7,7 +7,10 @@ import '../models/user_model.dart';
 /// AuthService bu repository'yi kullanarak Firebase ile konuşur.
 class AuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    serverClientId:
+        '750201021877-fp2pvpvdkvf1h6qgijmnciprfqfou0kki.apps.googleusercontent.com',
+  );
 
   User? get currentUser => _auth.currentUser;
   Stream<User?> get authStateChanges => _auth.authStateChanges();

@@ -6,8 +6,26 @@ import '../../../../core/routes/app_pages.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../providers/profile_provider.dart';
 
-class LeaderboardPage extends StatelessWidget {
+class LeaderboardPage extends StatefulWidget {
   const LeaderboardPage({super.key});
+
+  @override
+  State<LeaderboardPage> createState() => _LeaderboardPageState();
+}
+
+class _LeaderboardPageState extends State<LeaderboardPage> {
+  late Future<List<Map<String, dynamic>>> _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _future = context.read<ProfileProvider>().getLeaderboard();
+  }
+
+  Future<void> _refresh() async {
+    final rows = await context.read<ProfileProvider>().getLeaderboard();
+    setState(() => _future = Future.value(rows));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +36,55 @@ class LeaderboardPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(Strings.leaderboardTitle),
       ),
-      body: profileProvider.isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : FutureBuilder(
-              future: profileProvider.getLeaderboard(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                }
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('Henüz skor kaydı yok.'));
-                }
-                return ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    final user = snapshot.data![index];
-                    final isCurrentUser = user['id'] == authProvider.currentUser?.id;
-                    return _LeaderboardRow(
-                      rank: index + 1,
-                      name: user['displayName'] as String? ?? 'Anonim',
-                      score: user['totalScore'] as int? ?? 0,
-                      isCurrentUser: isCurrentUser,
-                    );
-                  },
+      body: FutureBuilder(
+        future: _future,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            final err = snapshot.error.toString().replaceAll('FirebaseError: ', '');
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(err, textAlign: TextAlign.center),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: _refresh,
+                      child: const Text(Strings.retryButton),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('Henüz skor kaydı yok.'));
+          }
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(16),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final user = snapshot.data![index];
+                final isCurrentUser =
+                    user['id'] == context.read<AuthProvider>().currentUser?.id;
+                return _LeaderboardRow(
+                  rank: index + 1,
+                  name: user['displayName'] as String? ?? 'Anonim',
+                  score: user['totalScore'] as int? ?? 0,
+                  isCurrentUser: isCurrentUser,
                 );
               },
             ),
+          );
+        },
+      ),
     );
   }
 }

@@ -37,15 +37,28 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: profileProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                _buildHeader(context, authProvider),
-                const SizedBox(height: 20),
-                if (profileProvider.stats != null)
-                  _buildStatsGrid(context, profileProvider.stats!)
-                else if (profileProvider.errorMessage != null)
-                  Center(child: Text(profileProvider.errorMessage!)),
-              ],
+          : RefreshIndicator(
+              onRefresh: () async {
+                await context
+                    .read<ProfileProvider>()
+                    .loadStats(context.read<AuthProvider>());
+              },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    _buildHeader(context, authProvider),
+                    const SizedBox(height: 20),
+                    if (profileProvider.stats != null)
+                      _buildStatsGrid(context, profileProvider.stats!)
+                    else if (profileProvider.errorMessage != null)
+                      Center(child: Text(profileProvider.errorMessage!))
+                    else
+                      const Center(child: Text('Henüz istatistik yok.')),
+                  ],
+                ),
+              ),
             ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showEditProfileDialog(context),
@@ -79,10 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildStatsGrid(BuildContext context, ProfileStats stats) {
-    return Expanded(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
+    return Column(
           children: [
             StatsCard(title: Strings.totalScoreLabel, value: '${stats.totalScore}', icon: Icons.score),
             const SizedBox(height: 12),
@@ -130,12 +140,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ],
-        ),
-      ),
     );
   }
-
-  void _showEditProfileDialog(BuildContext context) {
     final auth = context.read<AuthProvider>();
     final nameController = TextEditingController(
       text: auth.currentUser?.displayName ?? '',

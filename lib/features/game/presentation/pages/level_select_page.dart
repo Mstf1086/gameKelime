@@ -7,8 +7,24 @@ import '../../../../core/routes/app_pages.dart';
 import '../../../../core/services/level_service.dart';
 import '../../data/models/level_model.dart';
 
-class LevelSelectPage extends StatelessWidget {
+class LevelSelectPage extends StatefulWidget {
   const LevelSelectPage({super.key});
+
+  @override
+  State<LevelSelectPage> createState() => _LevelSelectPageState();
+}
+
+class _LevelSelectPageState extends State<LevelSelectPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final svc = context.read<LevelService>();
+      if (svc.availableLevels.isEmpty && !svc.isLoading) {
+        svc.loadLevels();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +33,34 @@ class LevelSelectPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.levelSelectTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => context.read<LevelService>().loadLevels(),
+          ),
+        ],
       ),
       body: levelService.isLoading
           ? const Center(child: CircularProgressIndicator())
           : levelService.error != null
               ? Center(
-                  child: Text(
-                    levelService.error!,
-                    textAlign: TextAlign.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          levelService.error!,
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          onPressed: () =>
+                              context.read<LevelService>().loadLevels(),
+                          child: const Text(Strings.retryButton),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               : _buildLevelGrid(context, levelService),
@@ -34,7 +70,7 @@ class LevelSelectPage extends StatelessWidget {
   Widget _buildLevelGrid(BuildContext context, LevelService levelService) {
     final levels = levelService.availableLevels;
     if (levels.isEmpty) {
-      return const Center(child: Text('Henüz seviye yüklenmedi.'));
+      return const Center(child: Text('Henüz seviye eklenmedi. Firestore levels koleksiyonuna seviyeleri ekleyin.'));
     }
 
     return Padding(
