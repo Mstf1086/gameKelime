@@ -8,8 +8,22 @@ import '../providers/profile_provider.dart';
 import '../widgets/stats_card.dart';
 import '../widgets/user_avatar.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final auth = context.read<AuthProvider>();
+      context.read<ProfileProvider>().loadStats(auth);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +117,7 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 12),
             TextButton.icon(
               onPressed: () async {
-                await authProvider.signOut();
+                await context.read<AuthProvider>().signOut();
                 if (context.mounted) {
                   Navigator.of(context).pushReplacementNamed(AppPages.welcome);
                 }
@@ -121,8 +135,9 @@ class ProfilePage extends StatelessWidget {
   }
 
   void _showEditProfileDialog(BuildContext context) {
+    final auth = context.read<AuthProvider>();
     final nameController = TextEditingController(
-      text: authProvider.currentUser?.displayName ?? '',
+      text: auth.currentUser?.displayName ?? '',
     );
     showDialog(
       context: context,
@@ -139,7 +154,7 @@ class ProfilePage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () async {
-              await authProvider.updateProfile(displayName: nameController.text.trim());
+              await context.read<AuthProvider>().updateProfile(displayName: nameController.text.trim());
               Navigator.of(context).pop();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -167,7 +182,7 @@ class ProfilePage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () async {
-              await authProvider.deleteAccount();
+              await context.read<AuthProvider>().deleteAccount();
               if (context.mounted) {
                 Navigator.of(context).pushReplacementNamed(AppPages.welcome);
               }

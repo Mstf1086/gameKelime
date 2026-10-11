@@ -4,15 +4,16 @@ import '../../../core/constants/colors.dart';
 import '../../../core/constants/strings.dart';
 import '../../../core/routes/app_pages.dart';
 import '../providers/auth_provider.dart';
+import '../../../core/services/theme_service.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
   @override
-  State<SignInPage> = State<SignInPage> with _SignInPageStateMixin;
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignInPageStateMixin extends State<SignInPage> {
+class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();

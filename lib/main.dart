@@ -36,21 +36,10 @@ class GameKelimeApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeService()),
         ChangeNotifierProvider(create: (_) => AuthService()),
-        ChangeNotifierProvider(create: (_) => FirestoreService.instance),
         ChangeNotifierProvider(create: (_) => TimerService()),
-        ChangeNotifierProvider(create: (_) => LevelService()),
-        ChangeNotifierProxyProvider<AuthProvider, LevelService>(
-          create: (_) => LevelService(),
-          update: (_, auth, level) {
-            // Auth durumu değiştiğinde level verisini yeniden yükle
-            final userId = auth.currentUser?.id;
-            if (userId != null) {
-              level!.loadLevels();
-            }
-            return level!;
-          },
-        ),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => LevelService()),
+        ChangeNotifierProvider(create: (_) => FirestoreService()),
       ],
       child: Consumer<ThemeService>(
         builder: (_, themeProvider, __) {

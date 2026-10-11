@@ -4,15 +4,16 @@ import '../../../core/constants/colors.dart';
 import '../../../core/constants/strings.dart';
 import '../../../core/routes/app_pages.dart';
 import '../providers/auth_provider.dart';
+import '../../../core/services/theme_service.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
-  State<SignUpPage> = State<SignUpPage> with _SignUpPageStateMixin;
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageStateMixin extends State<SignUpPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();

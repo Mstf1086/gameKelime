@@ -20,7 +20,7 @@ class WelcomePage extends StatelessWidget {
             _buildLogo(context),
             const SizedBox(height: 32),
             Text(
-              AppTitleShort,
+              Strings.appTitleShort,
               style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,

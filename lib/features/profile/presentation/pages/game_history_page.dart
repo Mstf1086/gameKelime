@@ -22,7 +22,7 @@ class GameHistoryPage extends StatelessWidget {
       body: profileProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : FutureBuilder(
-              future: profileProvider.getUserGameRecords(authProvider.currentUser?.uid),
+              future: profileProvider.getUserGameRecords(authProvider.currentUser?.id),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(child: Text(snapshot.error.toString()));

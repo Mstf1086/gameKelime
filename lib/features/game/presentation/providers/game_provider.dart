@@ -156,7 +156,7 @@ class GameProvider extends ChangeNotifier {
   void _calculateFinalScore() {
     if (_level == null) return;
     final secondsElapsed =
-        GameConfig.timeLimit.inWholeSeconds - _timerService.remaining.inWholeSeconds;
+        GameConfig.timeLimit.inSeconds - _timerService.remaining.inSeconds;
     _score = GameConfig.calculateFinalScore(
       basePoints: _level!.basePoints,
       level: _level!.level,

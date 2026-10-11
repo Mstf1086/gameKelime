@@ -34,7 +34,7 @@ class LeaderboardPage extends StatelessWidget {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     final user = snapshot.data![index];
-                    final isCurrentUser = user['id'] == authProvider.currentUser?.uid;
+                    final isCurrentUser = user['id'] == authProvider.currentUser?.id;
                     return _LeaderboardRow(
                       rank: index + 1,
                       name: user['displayName'] as String? ?? 'Anonim',

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
 import '../../../../core/constants/strings.dart';
 import '../../../../core/errors/firebase_errors.dart';
 import '../../../auth/data/repositories/user_repository.dart';
@@ -31,17 +31,25 @@ class ProfileProvider extends ChangeNotifier {
         message: 'Kullanıcı oturum açmamış.',
       );
 
-      final userData = await _firestore.collection('users').doc(user.uid).get();
+      final userData = await _firestore.collection('users').doc(user.id).get();
       if (!userData.exists) {
         throw FirebaseErrors.unauthorized();
       }
 
-      final gameRecordsData = await _userRepository.userCollection('gameRecords', user.uid);
+      final gameRecordsData = await _firestore
+          .collection('gameRecords')
+          .where('userId', isEqualTo: user.id)
+          .get()
+          .then((s) => s.docs.map((d) {
+                final m = d.data();
+                m['id'] = d.id;
+                return m;
+              }).toList());
 
       _stats = ProfileStats.fromUserData(
         userData: userData.data()!,
         gameRecords: gameRecordsData,
-        userId: user.uid,
+        userId: user.id,
       );
     } on FirebaseErrors catch (e) {
       _errorMessage = e.message;
@@ -57,7 +65,15 @@ class ProfileProvider extends ChangeNotifier {
   Future<List<Map<String, dynamic>>> getUserGameRecords(String? userId) async {
     if (userId == null) return [];
     try {
-      final records = await _userRepository.userCollection('gameRecords', userId);
+      final records = await _firestore
+          .collection('gameRecords')
+          .where('userId', isEqualTo: userId)
+          .get()
+          .then((s) => s.docs.map((d) {
+                final m = d.data();
+                m['id'] = d.id;
+                return m;
+              }).toList());
       final sorted = List<Map<String, dynamic>>.from(records)..sort((a, b) {
         final ta = a['createdAt'] is Timestamp ? (a['createdAt'] as Timestamp).toDate() : DateTime(1);
         final tb = b['createdAt'] is Timestamp ? (b['createdAt'] as Timestamp).toDate() : DateTime(1);

@@ -20,6 +20,7 @@ class LevelService extends ChangeNotifier {
   List<LevelModel> get availableLevels => List.unmodifiable(_availableLevels);
   int get unlockedLevel => _unlockedLevel;
   int get currentLevelIndex => _currentLevelIndex;
+  bool isLevelUnlocked(int level) => level <= _unlockedLevel;
   LevelModel? get currentLevel {
     if (_currentLevelIndex >= 0 &&
         _currentLevelIndex < _availableLevels.length) {
@@ -29,7 +30,6 @@ class LevelService extends ChangeNotifier {
   }
   bool get isLoading => _isLoading;
   String? get error => _error;
-  bool get isLevelUnlocked(int level) => level <= _unlockedLevel;
 
   Future<void> loadLevels() async {
     try {
