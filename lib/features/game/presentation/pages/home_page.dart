@@ -4,7 +4,7 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_pages.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
-import '../../../core/services/level_service.dart';
+import '../../../../core/services/level_service.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

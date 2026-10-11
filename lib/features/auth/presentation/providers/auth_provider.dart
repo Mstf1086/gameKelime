@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import '../../../core/constants/strings.dart';
-import '../../../core/errors/firebase_errors.dart';
+import '../../../../core/constants/strings.dart';
+import '../../../../core/errors/firebase_errors.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../../data/repositories/user_repository.dart';

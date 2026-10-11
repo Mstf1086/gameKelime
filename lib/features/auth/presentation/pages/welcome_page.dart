@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../core/constants/colors.dart';
-import '../../../core/constants/strings.dart';
-import '../../../core/routes/app_pages.dart';
-import '../../../core/services/theme_service.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/strings.dart';
+import '../../../../core/routes/app_pages.dart';
+import '../../../../core/services/theme_service.dart';
 import '../providers/auth_provider.dart';
 
 class WelcomePage extends StatelessWidget {

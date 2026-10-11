@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../core/constants/colors.dart';
-import '../../../core/constants/strings.dart';
-import '../../../core/routes/app_pages.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/strings.dart';
+import '../../../../core/routes/app_pages.dart';
 import '../providers/auth_provider.dart';
-import '../../../core/services/theme_service.dart';
+import '../../../../core/services/theme_service.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
