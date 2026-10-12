@@ -72,7 +72,7 @@ class _LevelSelectPageState extends State<LevelSelectPage> {
                     ),
                   ),
                 )
-              : _buildLevelGrid(context, levelService, unlockedLevel);
+              : _buildLevelGrid(context, levelService, unlockedLevel),
     );
   }
 
