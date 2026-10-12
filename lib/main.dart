@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +56,10 @@ class GameKelimeApp extends StatelessWidget {
             theme: AppColors.lightTheme,
             darkTheme: AppColors.darkTheme,
             themeMode: themeProvider.themeMode,
-            initialRoute: AppPages.welcome,
+            // Oturum açıkse doğrudan ana ekrana git (yeniden giriş isteme).
+            initialRoute: FirebaseAuth.instance.currentUser != null
+                ? AppPages.home
+                : AppPages.welcome,
             onGenerateRoute: AppPages.onGenerateRoute,
           );
         },

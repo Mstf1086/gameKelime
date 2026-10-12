@@ -1,5 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/game_config.dart';
 import '../../../../core/constants/strings.dart';
@@ -29,6 +32,12 @@ class _LevelSelectPageState extends State<LevelSelectPage> {
   @override
   Widget build(BuildContext context) {
     final levelService = context.watch<LevelService>();
+    final auth = context.watch<AuthProvider>();
+    // Kullanıcının Firestore'daki kayıtlı seviyesi + servisteki kilit.
+    final unlockedLevel = math.max(
+      levelService.unlockedLevel,
+      auth.currentUser?.levelReached ?? 1,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -85,11 +94,11 @@ class _LevelSelectPageState extends State<LevelSelectPage> {
         itemCount: levels.length,
         itemBuilder: (context, index) {
           final level = levels[index];
-          final isUnlocked = levelService.isLevelUnlocked(level.level);
+          final isUnlocked = level.level <= unlockedLevel;
           return _LevelCard(
             level: level,
             isUnlocked: isUnlocked,
-            onTap: () => _onLevelSelected(context, levelService, level),
+            onTap: () => _onLevelSelected(context, levelService, level, unlockedLevel),
           );
         },
       ),
@@ -100,8 +109,9 @@ class _LevelSelectPageState extends State<LevelSelectPage> {
     BuildContext context,
     LevelService levelService,
     LevelModel level,
+    int unlockedLevel,
   ) {
-    if (!levelService.isLevelUnlocked(level.level)) {
+    if (level.level > unlockedLevel) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Bu seviye henüz kilitli.')),
       );

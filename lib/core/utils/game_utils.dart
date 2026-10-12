@@ -98,4 +98,25 @@ class GameUtils {
     return normalized.isNotEmpty &&
         RegExp(r'^[A-ZĞÜŞİÖÇ]+$', caseSensitive: false).hasMatch(normalized);
   }
+
+  /// Sistem klavyesinden gelen harfi cevaba göre normalize eder.
+  /// Türkçe olmayan klavyede g→ğ, c→ç, s→ş, u→ü, o→ö, i→ı/İ yerine
+  /// yazıldığında kabul edilir ve cevaptaki doğru (Türkçe) harf döndürülür.
+  /// Harf cevapta hiç yoksa yazılan harf aynen döndürülür (yanlış tahmin).
+  /// Harf olmayan girdiler (boşluk, rakam, noktalama) için null döner.
+  static String? normalizeLetterForAnswer(String raw, String answer) {
+    final up = raw.toUpperCase();
+    if (up.length != 1 || !RegExp(r'^[A-ZÇĞİÖŞÜ]$').hasMatch(up)) {
+      return null;
+    }
+    final ans = answer.toUpperCase();
+    if (ans.contains(up)) return up;
+    const toTurkish = {'G': 'Ğ', 'C': 'Ç', 'S': 'Ş', 'I': 'İ', 'U': 'Ü', 'O': 'Ö'};
+    final turkish = toTurkish[up];
+    if (turkish != null && ans.contains(turkish)) return turkish;
+    const toAscii = {'Ğ': 'G', 'Ç': 'C', 'Ş': 'S', 'İ': 'I', 'Ü': 'U', 'Ö': 'O'};
+    final ascii = toAscii[up];
+    if (ascii != null && ans.contains(ascii)) return ascii;
+    return up;
+  }
 }

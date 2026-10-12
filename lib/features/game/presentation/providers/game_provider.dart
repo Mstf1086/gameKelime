@@ -172,11 +172,9 @@ class GameProvider extends ChangeNotifier {
     try {
       final secondsElapsed =
           GameConfig.timeLimit.inSeconds - _timerService.remaining.inSeconds;
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .collection('gameRecords')
-          .add({
+      final userDoc =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+      await userDoc.collection('gameRecords').add({
         'level': _level!.level,
         'word': _level!.answer,
         'score': _score,
@@ -187,11 +185,20 @@ class GameProvider extends ChangeNotifier {
       });
 
       // Kullanıcı istatistiklerini güncelle
-      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+      await userDoc.update({
         'gamesPlayed': FieldValue.increment(1),
         if (_isWin) 'gamesWon': FieldValue.increment(1),
         'totalScore': FieldValue.increment(_score),
       });
+
+      // Kazanılan seviyeyi kaydet: kullanıcı kaldığı seviyeden devam etsin.
+      if (_isWin) {
+        final snap = await userDoc.get();
+        final reached = (snap.data()?['levelReached'] as int?) ?? 1;
+        if (_level!.level + 1 > reached) {
+          await userDoc.update({'levelReached': _level!.level + 1});
+        }
+      }
     } on FirebaseException catch (e) {
       _error = FirebaseErrors.firestoreError(e).message;
     } catch (e) {

@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/game_config.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/app_pages.dart';
 import '../../../../core/services/timer_service.dart';
 import '../../../../core/utils/game_utils.dart';
 import '../../../../core/services/level_service.dart';
+import '../../../auth/presentation/providers/auth_provider.dart';
 import '../providers/game_provider.dart';
 import '../providers/keyboard_provider.dart';
 import '../widgets/score_board.dart';
 import '../widgets/question_card.dart';
 import '../widgets/letter_box.dart';
 import '../widgets/joker_buttons.dart';
-import '../widgets/letter_keyboard.dart';
+import '../widgets/system_keyboard_input.dart';
 import '../widgets/timer_widget.dart';
 
 class GamePage extends StatefulWidget {
@@ -28,6 +26,7 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   late final GameProvider _gameProvider;
   late final KeyboardProvider _keyboardProvider;
+  bool _resultShown = false;
 
   @override
   void initState() {
@@ -123,7 +122,7 @@ class _GamePageState extends State<GamePage> {
                   const SizedBox(height: 16),
                   const JokerButtons(),
                   const SizedBox(height: 8),
-                  const LetterKeyboard(),
+                  const SystemKeyboardInput(),
                   const SizedBox(height: 16),
                 ],
               );
@@ -157,8 +156,20 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
-  void _goToResult(BuildContext context, GameProvider game) {
+  Future<void> _goToResult(BuildContext context, GameProvider game) async {
+    if (_resultShown || !mounted) return;
+    _resultShown = true;
+
+    // Oyun sonucunu + seviye ilerlemesini Firestore'a kaydet.
+    final uid = context.read<AuthProvider>().currentUser?.id;
+    if (uid != null) {
+      await game.saveGameRecord(userId: uid);
+    }
     if (!mounted) return;
+    if (game.isWin && game.level != null) {
+      context.read<LevelService>().unlockLevel(game.level!.level + 1);
+    }
+
     Navigator.of(context).pushReplacementNamed(
       AppPages.gameResult,
       arguments: {

@@ -12,6 +12,7 @@ class AuthProvider extends ChangeNotifier {
   final UserRepository _userRepository = UserRepository();
 
   UserModel? _currentUser;
+  String? _loadedProfileUid;
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -26,7 +27,14 @@ class AuthProvider extends ChangeNotifier {
 
   void _listenToAuthState() {
     _authRepository.authStateChanges.listen((user) {
-      _currentUser = user != null ? UserModel.fromUser(user) : null;
+      if (user == null) {
+        _currentUser = null;
+        _loadedProfileUid = null;
+      } else if (_currentUser?.id != user.uid) {
+        // Yeni/kalıcı oturum: temel bilgiyi kur, detayları Firestore'dan çek.
+        _currentUser = UserModel.fromUser(user);
+        _loadUserProfile(user.uid);
+      }
       _isLoading = false;
       _errorMessage = null;
       _userRepository.setUserId(user?.uid ?? '');
@@ -107,6 +115,7 @@ class AuthProvider extends ChangeNotifier {
 
   /// Profil verisini Firestore'dan yükler.
   Future<void> _loadUserProfile(String uid) async {
+    if (_loadedProfileUid == uid) return;
     try {
       var record = await _userRepository.getCurrentUserRecord();
       if (record == null) {
@@ -114,6 +123,7 @@ class AuthProvider extends ChangeNotifier {
         await _userRepository.createUserRecord(record);
       }
       _currentUser = record;
+      _loadedProfileUid = uid;
     } on FirebaseErrors catch (e) {
       _errorMessage = e.message;
     } catch (e) {
@@ -130,6 +140,7 @@ class AuthProvider extends ChangeNotifier {
       _isLoading = true;
       await _authRepository.signOut();
       _currentUser = null;
+      _loadedProfileUid = null;
       _errorMessage = null;
     } catch (e) {
       _errorMessage = Strings.errorUnknown;

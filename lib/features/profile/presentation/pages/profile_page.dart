@@ -34,6 +34,13 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.profileTitle),
+        actions: [
+          IconButton(
+            onPressed: () => _showEditProfileDialog(context),
+            icon: const Icon(Icons.edit_outlined),
+            tooltip: Strings.editProfileButton,
+          ),
+        ],
       ),
       body: profileProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -60,11 +67,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showEditProfileDialog(context),
-        icon: const Icon(Icons.edit),
-        label: const Text(Strings.editProfileButton),
-      ),
     );
   }
 
