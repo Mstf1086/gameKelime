@@ -28,6 +28,8 @@ jobs:
           if [ ! -d android ]; then
             flutter create --platforms=android --project-name game_kelime --org com.example .
           fi
+          # flutter create'nin ürettiği boilerplate testi sil (MyApp hatası veriyor)
+          rm -f test/widget_test.dart
 
       - name: Release keystore ayarla
         env:

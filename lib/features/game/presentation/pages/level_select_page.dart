@@ -72,11 +72,15 @@ class _LevelSelectPageState extends State<LevelSelectPage> {
                     ),
                   ),
                 )
-              : _buildLevelGrid(context, levelService),
+              : _buildLevelGrid(context, levelService, unlockedLevel);
     );
   }
 
-  Widget _buildLevelGrid(BuildContext context, LevelService levelService) {
+  Widget _buildLevelGrid(
+    BuildContext context,
+    LevelService levelService,
+    int unlockedLevel,
+  ) {
     final levels = levelService.availableLevels;
     if (levels.isEmpty) {
       return const Center(child: Text('Henüz seviye eklenmedi. Firestore levels koleksiyonuna seviyeleri ekleyin.'));
