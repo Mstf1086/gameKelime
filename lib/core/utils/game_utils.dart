@@ -2,17 +2,25 @@
 class GameUtils {
   GameUtils._();
 
-  /// Türkçe Q klavye düzeni. Sesli harfler her zaman aktiftir,
-  /// sessiz harfler oyun başlangıcında pasiftir.
+  /// Türkçe Q klavye satırları (fiziksel Türkçe Q düzeni).
+  /// Sesli harfler her zaman aktiftir, sessiz harfler oyun
+  /// başlangıcında pasiftir.
+  static const List<List<String>> _turkishQRows = [
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Ğ', 'Ü'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ş', 'İ'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Ö', 'Ç'],
+  ];
+
+  /// Türkçe Q klavyedeki tüm harfler (benzersiz, satır sırasıyla).
   static const List<String> _turkishQKeyboard = [
-    'Q', 'Ğ', 'Ü', 'Ş', 'I', 'Ö', 'Ç', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
-    'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V',
-    'Y', 'Z',
+    'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Ğ', 'Ü',
+    'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ş', 'İ',
+    'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Ö', 'Ç',
   ];
 
   /// Varsayılan aktif harfler (sesli harfler + yaygın sessizler).
   static const Set<String> _defaultActiveKeys = {
-    'A', 'E', 'I', 'O', 'Ö', 'U', 'Ü',
+    'A', 'E', 'I', 'İ', 'O', 'Ö', 'U', 'Ü',
     'M', 'N', 'R', 'S', 'T',
   };
 
@@ -23,19 +31,9 @@ class GameUtils {
   static Set<String> getDefaultActiveKeys() =>
       Set.unmodifiable(_defaultActiveKeys);
 
-  /// Klavye satırını hesaplar (yaklaşık 10 tuşlu satırlar).
+  /// Klavye satırlarını döndürür (Türkçe Q fiziksel düzeni).
   static List<List<String>> getKeyboardRows() {
-    final List<List<String>> rows = [];
-    const int charsPerRow = 10;
-    for (var i = 0; i < _turkishQKeyboard.length; i += charsPerRow) {
-      rows.add(_turkishQKeyboard.sublist(
-        i,
-        i + charsPerRow > _turkishQKeyboard.length
-            ? _turkishQKeyboard.length
-            : i + charsPerRow,
-      ));
-    }
-    return List.unmodifiable(rows);
+    return List.unmodifiable(_turkishQRows);
   }
 
   /// Kelimenin harf dağılımını hesaplar: harf -> tekrar sayısı.

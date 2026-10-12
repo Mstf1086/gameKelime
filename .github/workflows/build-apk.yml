@@ -29,6 +29,29 @@ jobs:
             flutter create --platforms=android --project-name game_kelime --org com.example .
           fi
 
+      - name: Release keystore ayarla
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.p12
+            export KEYSTORE_FILE="$PWD/android/app/upload-keystore.p12"
+            export KEYSTORE_STORE_PASSWORD="$KEYSTORE_PASSWORD"
+            export KEYSTORE_KEY_ALIAS="${KEYSTORE_ALIAS:-upload}"
+            export KEYSTORE_KEY_PASSWORD="$KEYSTORE_PASSWORD"
+            {
+              echo "KEYSTORE_FILE=$KEYSTORE_FILE"
+              echo "KEYSTORE_STORE_PASSWORD=$KEYSTORE_STORE_PASSWORD"
+              echo "KEYSTORE_KEY_ALIAS=$KEYSTORE_KEY_ALIAS"
+              echo "KEYSTORE_KEY_PASSWORD=$KEYSTORE_KEY_PASSWORD"
+            } >> android/gradle.properties
+            python3 tools/patch_signing.py
+          else
+            echo "KEYSTORE_BASE64 secret'u yok — debug imzasi ile derlenecek."
+          fi
+
       - run: flutter pub get
       - run: flutter analyze --no-fatal-warnings || true
       - run: flutter build apk --release

@@ -12,7 +12,6 @@ class LetterKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final game = context.watch<GameProvider>();
     final keyboard = context.watch<KeyboardProvider>();
-    final rows = GameUtils.getKeyboardRows();
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -27,28 +26,37 @@ class LetterKeyboard extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: rows.map((row) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: row.map((letter) {
-                return _KeyboardKey(
-                  letter: letter,
-                  isActive: game.activeKeys.contains(letter),
-                  isPressed: keyboard.isPressed(letter) ||
-                      game.guessedLetters.contains(letter) ||
-                      game.wrongLetters.contains(letter),
-                  isCorrect: game.guessedLetters.contains(letter),
-                  isWrong: game.wrongLetters.contains(letter),
-                  onTap: () => _handleKeyTap(context, letter),
-                );
-              }).toList(),
-            ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final rows = GameUtils.getKeyboardRows();
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: rows.map((row) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 3),
+                child: Row(
+                  children: row.map((letter) {
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: _KeyboardKey(
+                          letter: letter,
+                          isActive: game.activeKeys.contains(letter),
+                          isPressed: keyboard.isPressed(letter) ||
+                              game.guessedLetters.contains(letter) ||
+                              game.wrongLetters.contains(letter),
+                          isCorrect: game.guessedLetters.contains(letter),
+                          isWrong: game.wrongLetters.contains(letter),
+                          onTap: () => _handleKeyTap(context, letter),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              );
+            }).toList(),
           );
-        }).toList(),
+        },
       ),
     );
   }
@@ -95,25 +103,22 @@ class _KeyboardKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 3),
-      child: Material(
-        color: _backgroundColor(),
+    return Material(
+      color: _backgroundColor(),
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        onTap: isPressed ? null : onTap,
         borderRadius: BorderRadius.circular(8),
-        child: InkWell(
-          onTap: isPressed ? null : onTap,
-          borderRadius: BorderRadius.circular(8),
-          child: Container(
-            width: 32,
-            height: 42,
-            alignment: Alignment.center,
-            child: Text(
-              letter,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: _textColor(),
-              ),
+        child: Container(
+          height: 42,
+          alignment: Alignment.center,
+          child: Text(
+            letter,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: _textColor(),
+            ),
             ),
           ),
         ),

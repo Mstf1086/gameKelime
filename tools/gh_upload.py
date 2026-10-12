@@ -18,7 +18,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 API = "https://api.github.com"
 INCLUDE = ["lib", "docs", ".github", "assets", "tools/gh_upload.py", "tools/make_zip.py",
-           "tools/seed_levels.py", "tools/gh_log.py", "pubspec.yaml", "README.md",
+           "tools/seed_levels.py", "tools/gh_log.py", "tools/make_keystore.py",
+           "tools/patch_signing.py", "tools/set_secrets.py",
+           "pubspec.yaml", "README.md",
            "INSTALL.md", "RULES.md", ".gitignore", ".firebaserc",
            "firebase.json", "firestore.rules", "firestore.indexes.json"]
 EXCLUDE_DIRS = {".git", ".venv", "build", ".dart_tool", ".idea", ".vscode",

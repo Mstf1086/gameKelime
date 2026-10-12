@@ -53,4 +53,9 @@
 # Python
 __pycache__/
 *.pyc
+
+# Release keystore (asla commitlenmez)
+*.p12
+*.jks
+android/app/*keystore*
 .venv/
